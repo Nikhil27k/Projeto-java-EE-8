@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Gestão de Pedidos</title>
+</h:head>
+
+<h:body>
+    <h:form id="formPedido">
+        <p:growl id="messages" showDetail="true" />
+        
+        <p:panel header="Gestão de Pedidos">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <h:link outcome="/index" value="Voltar" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            
+            <!-- Formulário de Cadastro/Edição -->
+            <p:panel header="#{pedidoBean.pedido.id == null ? 'Novo Pedido' : 'Editar Pedido'}" 
+                     style="margin-top: 20px">
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-fluid">
+                    <p:outputLabel value="Número do Pedido:" for="numeroPedido" />
+                    <p:inputText id="numeroPedido" value="#{pedidoBean.pedido.numeroPedido}" 
+                                 required="true" requiredMessage="Número do pedido é obrigatório" />
+                    
+                    <p:outputLabel value="Cliente:" for="cliente" />
+                    <p:selectOneMenu id="cliente" value="#{pedidoBean.pedido.clienteId}" 
+                                     required="true" requiredMessage="Cliente é obrigatório">
+                        <f:selectItem itemLabel="Selecione um cliente" itemValue="" />
+                        <f:selectItems value="#{pedidoBean.clientes}" var="c" 
+                                       itemLabel="#{c.nome}" itemValue="#{c.id}" />
+                    </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Descrição:" for="descricao" />
+                    <p:inputTextarea id="descricao" value="#{pedidoBean.pedido.descricao}" 
+                                     rows="3"
+                                     required="true" requiredMessage="Descrição é obrigatória" />
+                    
+                    <p:outputLabel value="Valor Total:" for="valorTotal" />
+                    <p:inputNumber id="valorTotal" value="#{pedidoBean.pedido.valorTotal}" 
+                                   symbol="R$ " decimalSeparator="," thousandSeparator="."
+                                   decimalPlaces="2" minValue="0"
+                                   required="true" requiredMessage="Valor total é obrigatório" />
+                    
+                    <p:outputLabel value="Data do Pedido:" for="dataPedido" />
+                    <p:calendar id="dataPedido" value="#{pedidoBean.pedido.dataPedido}" 
+                                pattern="dd/MM/yyyy" mask="true"
+                                required="true" requiredMessage="Data do pedido é obrigatória" />
+                </p:panelGrid>
+                
+                <p:commandButton value="Salvar" icon="pi pi-save" 
+                                 action="#{pedidoBean.salvar()}" 
+                                 update="@form" 
+                                 styleClass="ui-button-success"
+                                 style="margin-right: 10px" />
+                
+                <p:commandButton value="Limpar" icon="pi pi-refresh" 
+                                 action="#{pedidoBean.limpar()}" 
+                                 update="@form" 
+                                 process="@this"
+                                 styleClass="ui-button-secondary" />
+            </p:panel>
+            
+            <!-- Filtro por Cliente -->
+            <p:panel header="Filtrar Pedidos" style="margin-top: 20px">
+                <p:panelGrid columns="3" layout="grid" styleClass="ui-fluid">
+                    <p:outputLabel value="Cliente:" for="clienteFiltro" />
+                    <p:selectOneMenu id="clienteFiltro" value="#{pedidoBean.clienteIdFiltro}">
+                        <f:selectItem itemLabel="Todos os clientes" itemValue="#{null}" />
+                        <f:selectItems value="#{pedidoBean.clientes}" var="c" 
+                                       itemLabel="#{c.nome}" itemValue="#{c.id}" />
+                    </p:selectOneMenu>
+                    <p:commandButton value="Filtrar" icon="pi pi-filter" 
+                                     action="#{pedidoBean.filtrarPorCliente()}" 
+                                     update="@form" />
+                </p:panelGrid>
+            </p:panel>
+            
+            <!-- Lista de Pedidos -->
+            <p:panel header="Lista de Pedidos" style="margin-top: 20px">
+                <p:dataTable value="#{pedidoBean.pedidos}" var="pedido" 
+                             emptyMessage="Nenhum pedido cadastrado"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20">
+                    
+                    <p:column headerText="ID" sortBy="#{pedido.id}">
+                        <h:outputText value="#{pedido.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Número" sortBy="#{pedido.numeroPedido}">
+                        <h:outputText value="#{pedido.numeroPedido}" />
+                    </p:column>
+                    
+                    <p:column headerText="Cliente" sortBy="#{pedido.clienteNome}">
+                        <h:outputText value="#{pedido.clienteNome}" />
+                    </p:column>
+                    
+                    <p:column headerText="Descrição">
+                        <h:outputText value="#{pedido.descricao}" />
+                    </p:column>
+                    
+                    <p:column headerText="Valor Total" sortBy="#{pedido.valorTotal}">
+                        <h:outputText value="#{pedido.valorTotal}">
+                            <f:convertNumber type="currency" currencySymbol="R$ " />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Data" sortBy="#{pedido.dataPedido}">
+                        <h:outputText value="#{pedido.dataPedido}">
+                            <f:converter converterId="localDateConverter" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Ações" style="width: 150px; text-align: center">
+                        <p:commandButton icon="pi pi-pencil" 
+                                         action="#{pedidoBean.editar(pedido)}" 
+                                         update="@form"
+                                         styleClass="ui-button-warning"
+                                         title="Editar"
+                                         style="margin-right: 5px"
+                                         immediate="true"
+                                         process="@this" />
+                        
+                        <p:commandButton icon="pi pi-trash" 
+                                         action="#{pedidoBean.remover(pedido)}" 
+                                         update="@form"
+                                         styleClass="ui-button-danger"
+                                         title="Remover"
+                                         process="@this">
+                            <p:confirm header="Confirmação" 
+                                       message="Deseja realmente excluir este pedido?" 
+                                       icon="pi pi-exclamation-triangle" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </p:panel>
+        
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+        </p:confirmDialog>
+    </h:form>
+</h:body>
+</html>
+

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Console H2 Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #2196F3;
+        }
+        .console-frame {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .back-link:hover {
+            background: #0056b3;
+        }
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .config-table th,
+        .config-table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .config-table th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .config-table code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <h1>Console H2 Database</h1>
+        
+        <div class="info-box">
+            <h3>📋 Instruções para Conectar ao PostgreSQL</h3>
+            <p><strong>O console H2 pode conectar ao PostgreSQL também!</strong> Use as seguintes informações:</p>
+            <table class="config-table">
+                <tr>
+                    <th>Campo</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td><strong>Driver Class</strong></td>
+                    <td><code>org.postgresql.Driver</code></td>
+                </tr>
+                <tr>
+                    <td><strong>JDBC URL</strong></td>
+                    <td><code>jdbc:postgresql://localhost:5432/projeto</code></td>
+                </tr>
+                <tr>
+                    <td><strong>User Name</strong></td>
+                    <td><code>admin</code></td>
+                </tr>
+                <tr>
+                    <td><strong>Password</strong></td>
+                    <td><code>password</code></td>
+                </tr>
+            </table>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+                <h4 style="margin-top: 0; color: #856404;">⚠️ Importante:</h4>
+                <ol style="margin: 10px 0; padding-left: 20px; color: #856404;">
+                    <li>Certifique-se de que o PostgreSQL está rodando na porta 5432</li>
+                    <li>O banco de dados <code>projeto</code> deve existir</li>
+                    <li>O usuário <code>admin</code> deve ter permissões no banco</li>
+                    <li>Se não conseguir conectar, verifique se o PostgreSQL está acessível</li>
+                </ol>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #d1ecf1; border-left: 4px solid #17a2b8; border-radius: 4px;">
+                <h4 style="margin-top: 0; color: #0c5460;">💡 Alternativa: H2 em Memória (para testes)</h4>
+                <p style="margin: 5px 0; color: #0c5460;"><strong>Use esta configuração para H2 em memória (dados temporários, serão perdidos ao reiniciar):</strong></p>
+                <table class="config-table" style="margin-top: 10px;">
+                    <tr>
+                        <th>Campo</th>
+                        <th>Valor</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Driver Class</strong></td>
+                        <td><code>org.h2.Driver</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>JDBC URL</strong></td>
+                        <td><code>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>User Name</strong></td>
+                        <td><code>sa</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Password</strong></td>
+                        <td><code>(deixe vazio ou não preencha)</code></td>
+                    </tr>
+                </table>
+                <p style="margin-top: 10px; color: #0c5460; font-size: 12px;">
+                    <strong>Nota:</strong> O parâmetro <code>DB_CLOSE_DELAY=-1</code> mantém o banco em memória mesmo sem conexões ativas.
+                </p>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #f8d7da; border-left: 4px solid #dc3545; border-radius: 4px;">
+                <h4 style="margin-top: 0; color: #721c24;">❌ Erro Comum</h4>
+                <p style="margin: 5px 0; color: #721c24;">
+                    Se você ver o erro <strong>"Database not found"</strong> ao usar <code>jdbc:h2:~/test</code>, 
+                    isso significa que está tentando criar um banco em arquivo. Use uma das opções acima:
+                </p>
+                <ul style="margin: 10px 0; padding-left: 20px; color: #721c24;">
+                    <li><strong>Para PostgreSQL:</strong> Use <code>org.postgresql.Driver</code> e a URL do PostgreSQL</li>
+                    <li><strong>Para H2 em memória:</strong> Use <code>jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1</code></li>
+                </ul>
+            </div>
+        </div>
+        
+        <h:form>
+            <p:commandButton value="Abrir Console H2 em Nova Aba" 
+                             onclick="window.open('#{request.contextPath}/h2-console/', '_blank'); return false;"
+                             icon="pi pi-external-link"
+                             styleClass="ui-button-success"
+                             style="margin-right: 10px" />
+                             
+            <p:button value="Voltar para Home" 
+                      outcome="/index"
+                      icon="pi pi-home"
+                      styleClass="ui-button-secondary" />
+        </h:form>
+        
+        <h3 style="margin-top: 30px;">Console Integrado</h3>
+        <p>Use o console abaixo para visualizar e gerenciar o banco de dados:</p>
+        
+        <iframe class="console-frame" src="#{request.contextPath}/h2-console/"></iframe>
+    </div>
+</h:body>
+</html>
+

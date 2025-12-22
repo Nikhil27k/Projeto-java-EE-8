@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>Projeto</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.xhtml</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.xhtml</welcome-file>
+  </welcome-file-list>
+  
+  <!-- Configuração do JSF FacesServlet -->
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+    <url-pattern>/faces/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Configuração de contexto JSF -->
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  
+  <!-- Console H2 Database -->
+  <servlet>
+    <servlet-name>H2Console</servlet-name>
+    <servlet-class>org.h2.server.web.WebServlet</servlet-class>
+    <init-param>
+      <param-name>webAllowOthers</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <init-param>
+      <param-name>trace</param-name>
+      <param-value>false</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>H2Console</servlet-name>
+    <url-pattern>/h2-console/*</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

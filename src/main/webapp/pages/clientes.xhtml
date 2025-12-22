@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Gestão de Clientes</title>
+</h:head>
+
+<h:body>
+    <h:form id="formCliente">
+        <p:growl id="messages" showDetail="true" />
+        
+        <p:panel header="Gestão de Clientes">
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <h:link outcome="/index" value="Voltar" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            
+            <!-- Formulário de Cadastro/Edição -->
+            <p:panel header="#{clienteBean.cliente.id == null ? 'Novo Cliente' : 'Editar Cliente'}" 
+                     style="margin-top: 20px">
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-fluid">
+                    <p:outputLabel value="Nome:" for="nome" />
+                    <p:inputText id="nome" value="#{clienteBean.cliente.nome}" 
+                                 required="true" requiredMessage="Nome é obrigatório" />
+                    
+                    <p:outputLabel value="CPF:" for="cpf" />
+                    <p:inputMask id="cpf" value="#{clienteBean.cliente.cpf}" 
+                                 mask="999.999.999-99"
+                                 required="true" requiredMessage="CPF é obrigatório" />
+                    
+                    <p:outputLabel value="E-mail:" for="email" />
+                    <p:inputText id="email" value="#{clienteBean.cliente.email}" 
+                                 required="true" requiredMessage="E-mail é obrigatório"
+                                 validatorMessage="E-mail inválido">
+                        <f:validateRegex pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" />
+                    </p:inputText>
+                    
+                    <p:outputLabel value="Data de Cadastro:" for="dataCadastro" />
+                    <p:calendar id="dataCadastro" value="#{clienteBean.cliente.dataCadastro}" 
+                                pattern="dd/MM/yyyy" mask="true"
+                                required="true" requiredMessage="Data de cadastro é obrigatória" />
+                </p:panelGrid>
+                
+                <p:commandButton value="Salvar" icon="pi pi-save" 
+                                 action="#{clienteBean.salvar()}" 
+                                 update="@form" 
+                                 styleClass="ui-button-success"
+                                 style="margin-right: 10px" />
+                
+                <p:commandButton value="Limpar" icon="pi pi-refresh" 
+                                 action="#{clienteBean.limpar()}" 
+                                 update="@form" 
+                                 process="@this"
+                                 styleClass="ui-button-secondary" />
+            </p:panel>
+            
+            <!-- Lista de Clientes -->
+            <p:panel header="Lista de Clientes" style="margin-top: 20px">
+                <p:dataTable value="#{clienteBean.clientes}" var="cliente" 
+                             emptyMessage="Nenhum cliente cadastrado"
+                             paginator="true" rows="10"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15,20">
+                    
+                    <p:column headerText="ID" sortBy="#{cliente.id}">
+                        <h:outputText value="#{cliente.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nome" sortBy="#{cliente.nome}" filterBy="#{cliente.nome}">
+                        <h:outputText value="#{cliente.nome}" />
+                    </p:column>
+                    
+                    <p:column headerText="CPF">
+                        <h:outputText value="#{cliente.cpf}" />
+                    </p:column>
+                    
+                    <p:column headerText="E-mail">
+                        <h:outputText value="#{cliente.email}" />
+                    </p:column>
+                    
+                    <p:column headerText="Data Cadastro">
+                        <h:outputText value="#{cliente.dataCadastro}">
+                            <f:converter converterId="localDateConverter" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Ações" style="width: 150px; text-align: center">
+                        <p:commandButton icon="pi pi-pencil" 
+                                         action="#{clienteBean.editar(cliente)}" 
+                                         update="@form"
+                                         process="@this"
+                                         immediate="true"
+                                         styleClass="ui-button-warning"
+                                         title="Editar"
+                                         style="margin-right: 5px" />
+                        
+                        <p:commandButton icon="pi pi-trash" 
+                                         action="#{clienteBean.remover(cliente)}" 
+                                         update="@form"
+                                         styleClass="ui-button-danger"
+                                         title="Remover">
+                            <p:confirm header="Confirmação" 
+                                       message="Deseja realmente excluir este cliente?" 
+                                       icon="pi pi-exclamation-triangle" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </p:panel>
+        
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+        </p:confirmDialog>
+    </h:form>
+</h:body>
+</html>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Sistema de Gestão - Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .menu-card {
+            background: #007bff;
+            color: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .menu-card:hover {
+            background: #0056b3;
+        }
+        .menu-card h2 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+        }
+        .menu-card p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <h1>Sistema de Gestão de Clientes e Pedidos</h1>
+        
+        <div class="menu-grid">
+            <h:link outcome="/pages/clientes" styleClass="menu-card">
+                <h2>Clientes</h2>
+                <p>Cadastrar, listar, editar e remover clientes</p>
+            </h:link>
+            
+            <h:link outcome="/pages/pedidos" styleClass="menu-card">
+                <h2>Pedidos</h2>
+                <p>Cadastrar, listar e gerenciar pedidos</p>
+            </h:link>
+            
+            <h:link outcome="/h2-console" styleClass="menu-card" style="background: #28a745;">
+                <h2>Console H2 Database</h2>
+                <p>Acessar console do banco de dados</p>
+            </h:link>
+        </div>
+    </div>
+</h:body>
+</html>
+
