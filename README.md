@@ -158,6 +158,8 @@ GRANT ALL PRIVILEGES ON DATABASE projeto TO admin;
 </module>
 ```
 
+<img width="357" height="349" alt="Image" src="https://github.com/user-attachments/assets/459b9de5-2071-4630-85a3-199260436751" />
+
 #### 2.2. Configurar Datasource no standalone.xml
 
 Edite o arquivo `wildfly-20.0.1.Final/standalone/configuration/standalone.xml` e adicione/configure o datasource:
@@ -240,6 +242,8 @@ mvn clean package
 
 ### 4. Acessar a Aplicação
 
+<img width="1248" height="898" alt="Image" src="https://github.com/user-attachments/assets/80396d63-80e0-4bda-bb08-1616f71be0e8" />
+
 Após o deploy bem-sucedido, acesse as seguintes URLs:
 
 | Página | URL |
@@ -248,6 +252,13 @@ Após o deploy bem-sucedido, acesse as seguintes URLs:
 | **Clientes** | http://localhost:8080/gestao-clientes-pedidos/pages/clientes.xhtml |
 | **Pedidos** | http://localhost:8080/gestao-clientes-pedidos/pages/pedidos.xhtml |
 | **Console H2** | http://localhost:8080/gestao-clientes-pedidos/h2-console.xhtml |
+
+<img width="1219" height="607" alt="Image" src="https://github.com/user-attachments/assets/b71f5a73-4b45-43de-b9ce-8fdabf56e14a" />
+
+<img width="1229" height="705" alt="Image" src="https://github.com/user-attachments/assets/e82d0567-1263-4329-908c-442087048041" />
+
+<img width="1224" height="889" alt="Image" src="https://github.com/user-attachments/assets/c544529c-93cf-4eb8-931d-3c0f8cba89a8" />
+
 
 #### Console de Administração do WildFly
 
